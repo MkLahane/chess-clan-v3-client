@@ -1,0 +1,33 @@
+.board-container {
+  box-shadow: 5px 5px 0px rgb(255, 255, 255);
+  position: relative;
+  width: 720px;
+  margin-right: 20px;
+}
+
+.board {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.board-cell {
+  width: 90px;
+  height: 90px;
+  cursor: grab;
+}
+
+.piece-div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: grabbing;
+}
+
+.piece-div img {
+  object-fit: contain;
+  transform: scale(0.8);
+}
