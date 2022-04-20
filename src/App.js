@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Arena from "./pages/Arena";
-import Game from "./pages/Game";
+import JoinGame from "./pages/JoinGame";
 import AuthRoute from "./components/AuthRoute";
 import { FirebaseContext } from "./contexts/FirebaseContext";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -29,9 +29,9 @@ function App() {
               <AuthRoute exact path="/arena" inverse={true} component={Arena} />
               <AuthRoute
                 exact
-                path="/games/:id"
+                path="/arena/:id"
                 inverse={true}
-                component={Game}
+                component={JoinGame}
               ></AuthRoute>
             </Switch>
           </GameProvider>

@@ -1,9 +1,3 @@
-.game-btn-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .game-div {
   text-align: center;
   min-height: 100vh;
@@ -16,9 +10,17 @@
   position: relative;
 }
 
+.game-btn-div {
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 .game-btn {
   background: #62b6cb;
-  padding: 10px 20px;
   font-size: 1.2rem;
   display: flex;
   border: none;
@@ -27,9 +29,20 @@
   font-weight: bolder;
   color: white;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   cursor: pointer;
-  margin: 10px;
+  height: 50px;
+}
+
+.game-btn svg {
+  width: 50px;
+  padding: 5px;
+}
+
+.game-inactive-btn {
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
 }
 
 .game-container {
@@ -40,7 +53,7 @@
 
 .game-toolbar {
   padding: 10px;
-  width: 30%;
+  width: 40%;
 }
 
 .game-toolbar-nav {
@@ -58,8 +71,9 @@
   margin: 0px 5px;
   width: 100%;
   padding: 10px 0px;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .toolbar-div {
@@ -67,4 +81,12 @@
   width: 100%;
   height: 80%;
   box-shadow: 5px 5px 0px white;
+}
+
+.active-toolbar {
+  filter: brightness(1);
+}
+
+.inactive-toolbar {
+  filter: brightness(0.7);
 }

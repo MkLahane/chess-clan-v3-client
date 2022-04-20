@@ -1,34 +1,47 @@
 import React, { useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { doc, onSnapshot } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useHistory } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Board } from "../components/Board";
 import { GameContext } from "../contexts/Game";
-import { new_game } from "../contexts/Game";
-import { ReactComponent as ChessboardIcon } from "../icons/chessboard-icon.svg";
 import { FirebaseContext } from "../contexts/FirebaseContext";
 import UsernameDiv from "../components/UsernameDiv";
 import { getUserstats } from "../contexts/Auth";
 import GameToolbar from "../components/GameToolbar";
 import "./chessboard.css";
 import "./arena.css";
+import { useEffect } from "react";
 
 export default function Arena() {
   const [username, setUsername] = useState("");
   const [rating, setRating] = useState("");
   const [gameId, setGameId] = useState(null);
+  const [gameIsOn, setGameIsOn] = useState(false);
   const history = useHistory();
   const { auth, db } = useContext(FirebaseContext);
   const [user] = useAuthState(auth);
   const { getFenString } = useContext(GameContext);
+  useEffect(() => {
+    const unsubUser = onSnapshot(doc(db, "users", user.uid), (doc) => {
+      const { username, rating, game_id } = doc.data();
+      setUsername(username);
+      setRating(rating);
+      setGameId(game_id);
+    });
+    return () => unsubUser();
+  }, []);
+  useEffect(() => {
+    if (gameId !== null) {
+      const unsubGame = onSnapshot(doc(db, "games", gameId), (doc) => {
+        const { playing } = doc.data();
+        setGameIsOn(playing);
+        return () => unsubGame();
+      });
+    }
+  }, [gameId]);
 
-  getUserstats(db, user).then(({ username, rating, gameId }) => {
-    setUsername(username);
-    setRating(rating);
-    setGameId(gameId);
-  });
   return (
     <div className="arena-div">
       <div className="user-div-container">
@@ -40,36 +53,8 @@ export default function Arena() {
             <Board />
           </DndProvider>
         </div>
-        <GameToolbar />
-        {/* <div className="game-btn-div">
-          {gameId === null && (
-            <button
-              className="game-btn"
-              onClick={async () => {
-                const game_id = uuidv4();
-                await new_game(db, getFenString(), user.uid, game_id);
-                history.push(`/games/${game_id}`);
-              }}
-            >
-              <ChessboardIcon />
-              New Game
-            </button>
-          )}
-          {gameId === null && (
-            <button className="game-btn" onClick={() => console.log(uuidv4())}>
-              <ChessboardIcon />
-              Find Game
-            </button>
-          )}
-          {gameId !== null && (
-            <button className="game-btn" onClick={() => console.log(uuidv4())}>
-              <ChessboardIcon />
-              Close Game
-            </button>
-          )}
-        </div> */}
+        <GameToolbar gameId={gameId} gameIsOn={gameIsOn} />
       </div>
-      {/* <NewGame auth={auth} /> */}
     </div>
   );
 }

@@ -1,35 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import ChatComponent from "./ChatComponent";
 import GameComponent from "./GameComponent";
+import MovesComponent from "./MovesComponent";
 
-export default function GameToolbar() {
-  const [activeNav, setActiveNav] = useState("game");
-  const [hoverNav, setHoverNav] = useState("");
+export default function GameToolbar({ gameId, gameIsOn }) {
+  const [activeNav, setActiveNav] = useState(gameIsOn ? "moves" : "game");
   return (
     <div className="game-toolbar">
       <ul className="game-toolbar-nav">
         <li
           className={
-            activeNav === "game" || hoverNav === "game" ? "active-nav" : ""
+            activeNav === "game" ? "active-toolbar" : "inactive-toolbar"
           }
+          onClick={() => setActiveNav("game")}
         >
           Game
         </li>
         <li
           className={
-            activeNav === "moves" || hoverNav === "moves" ? "active-nav" : ""
+            activeNav === "moves" ? "active-toolbar" : "inactive-toolbar"
           }
+          onClick={() => setActiveNav("moves")}
         >
           Moves
         </li>
         <li
           className={
-            activeNav === "chat" || hoverNav === "chat" ? "active-nav" : ""
+            activeNav === "chat" ? "active-toolbar" : "inactive-toolbar"
           }
+          onClick={() => setActiveNav("chat")}
         >
           Chat
         </li>
       </ul>
-      {activeNav === "game" && <GameComponent />}
+      {activeNav === "game" && (
+        <GameComponent gameId={gameId} gameIsOn={gameIsOn} />
+      )}
+      {activeNav === "moves" && (
+        <MovesComponent gameId={gameId} gameIsOn={gameIsOn} />
+      )}
+      {activeNav === "chat" && (
+        <ChatComponent gameId={gameId} gameIsOn={gameIsOn} />
+      )}
     </div>
   );
 }
