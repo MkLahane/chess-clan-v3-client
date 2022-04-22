@@ -11,6 +11,8 @@ import { FirebaseContext } from "./contexts/FirebaseContext";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { UserContext } from "./contexts/UserContext";
 import { GameProvider } from "./contexts/Game";
+import Notification from "./components/Notification";
+import { NotificationProvider } from "./contexts/NotificationContext";
 import "./App.css";
 
 function App() {
@@ -21,19 +23,27 @@ function App() {
       <UserContext.Provider value={{ user }}>
         <BrowserRouter>
           <GameProvider>
-            <Navbar />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <AuthRoute exact path="/register" component={Register} />
-              <AuthRoute exact path="/login" component={Login} />
-              <AuthRoute exact path="/arena" inverse={true} component={Arena} />
-              <AuthRoute
-                exact
-                path="/arena/:id"
-                inverse={true}
-                component={JoinGame}
-              ></AuthRoute>
-            </Switch>
+            <NotificationProvider>
+              <Navbar />
+              <Notification />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <AuthRoute exact path="/register" component={Register} />
+                <AuthRoute exact path="/login" component={Login} />
+                <AuthRoute
+                  exact
+                  path="/arena"
+                  inverse={true}
+                  component={Arena}
+                />
+                <AuthRoute
+                  exact
+                  path="/arena/:id"
+                  inverse={true}
+                  component={JoinGame}
+                ></AuthRoute>
+              </Switch>
+            </NotificationProvider>
           </GameProvider>
         </BrowserRouter>
       </UserContext.Provider>

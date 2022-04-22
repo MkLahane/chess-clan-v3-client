@@ -4,13 +4,20 @@ import { useDrop } from "react-dnd";
 import { useContext } from "react";
 import { GameContext } from "../contexts/Game";
 
-export const Cell = ({ piece, isBlack, chessPos }) => {
-  const { makeMove } = useContext(GameContext);
+export const Cell = ({ piece, isBlack, chessPos, isPlayingBlack }) => {
+  const { me, makeMove } = useContext(GameContext);
   const [{ isOver }, drop] = useDrop({
     accept: "piece",
     drop: (item) => {
-      const [fromPos] = item.id.split("_");
-      makeMove(fromPos, chessPos);
+      const [fromPos, _, whichColor] = item.id.split("_");
+      if (me !== null) {
+        let myColor = me.color === "black" ? "b" : "w";
+        if (myColor == whichColor) {
+          makeMove(fromPos, chessPos);
+        }
+      } else {
+        makeMove(fromPos, chessPos);
+      }
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -25,7 +32,12 @@ export const Cell = ({ piece, isBlack, chessPos }) => {
       ref={drop}
     >
       {piece && (
-        <Piece type={piece.type} color={piece.color} chessPos={chessPos} />
+        <Piece
+          type={piece.type}
+          color={piece.color}
+          isPlayingBlack={isPlayingBlack}
+          chessPos={chessPos}
+        />
       )}
     </div>
   );

@@ -5,6 +5,8 @@ import { ReactComponent as ChessboardIcon } from "../icons/chessboard-icon.svg";
 import { new_game } from "../contexts/Game";
 import { FirebaseContext } from "../contexts/FirebaseContext";
 import { GameContext } from "../contexts/Game";
+import { NotificationContext } from "../contexts/NotificationContext";
+import { close_game } from "../contexts/Game";
 
 export default function GameComponent({ gameId, gameIsOn }) {
   const { auth, db } = useContext(FirebaseContext);
@@ -23,40 +25,48 @@ export default function GameComponent({ gameId, gameIsOn }) {
   return (
     <div className="toolbar-div">
       <div className="game-btn-div">
-        {gameId !== null && (
-          <button
-            className={
-              gameId === null ? "game-btn" : "game-btn game-inactive-btn"
-            }
-            onClick={async () => {
-              const game_id = uuidv4();
-              resetBoard();
-              await new_game(db, getFenString(), user, game_id);
-            }}
-          >
-            <ChessboardIcon />
-            New Game
-          </button>
-        )}
-        {gameId !== null && (
-          <button
-            className={
-              gameId === null ? "game-btn" : "game-btn game-inactive-btn"
-            }
-            onClick={() => console.log(uuidv4())}
-          >
-            <ChessboardIcon />
-            Find Game
-          </button>
-        )}
         <button
+          className={
+            gameId === "NONE" ? "game-btn" : "game-btn game-inactive-btn"
+          }
+          onClick={() => {
+            const game_id = uuidv4();
+            resetBoard();
+            new_game(db, getFenString(), user, game_id);
+          }}
+        >
+          <ChessboardIcon />
+          New Game
+        </button>
+        <button
+          className={
+            gameId === "NONE" ? "game-btn" : "game-btn game-inactive-btn"
+          }
+          onClick={() => console.log(uuidv4())}
+        >
+          <ChessboardIcon />
+          Find Game
+        </button>
+        <button
+          className={
+            gameId !== "NONE" ? "game-btn" : "game-btn game-inactive-btn"
+          }
           onClick={() => (copied ? setCopied(false) : copy())}
-          className="game-btn"
         >
           <i className="fa fa-copy" />
           {!copied ? "Copy link" : "Copied!"}
         </button>
-        {!gameIsOn && <label>Waiting for player to join...</label>}
+        <button
+          className={
+            gameId !== "NONE" ? "game-btn" : "game-btn game-inactive-btn"
+          }
+          onClick={() => {
+            close_game(db, user, gameId);
+          }}
+        >
+          <i className="fa fa-window-close" aria-hidden="true"></i>
+          Close Game
+        </button>
       </div>
     </div>
   );

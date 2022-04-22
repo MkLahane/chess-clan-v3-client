@@ -1,0 +1,36 @@
+.notif-div {
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notif {
+  font-size: 1.3rem;
+  color: white;
+  background: #5fa8d3;
+  padding: 100px;
+  position: relative;
+}
+
+.notif-div button {
+  background: #62b6cb;
+  font-size: 3rem;
+  display: flex;
+  border: none;
+  font-family: "Poppins";
+  font-weight: bolder;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

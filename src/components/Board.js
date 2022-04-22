@@ -4,7 +4,10 @@ import { useContext } from "react";
 import { GameContext } from "../contexts/Game";
 
 export const Board = () => {
-  const { board } = useContext(GameContext);
+  const { board, me } = useContext(GameContext);
+  const blackStyle = {
+    transform: "rotate(180deg)",
+  };
   const getXYPos = (i) => {
     const x = i % 8;
     const y = Math.abs(Math.floor(i / 8) - 7);
@@ -20,13 +23,17 @@ export const Board = () => {
     return `${letter}${y + 1}`;
   };
   return (
-    <div className="board">
+    <div
+      className="board"
+      style={me !== null && me.color === "black" ? blackStyle : {}}
+    >
       {board.flat().map((piece, i) => (
         <Cell
           piece={piece}
           isBlack={isBlack(i)}
           key={i}
           chessPos={getChessPos(i)}
+          isPlayingBlack={me !== null && me.color === "black" ? true : false}
         />
       ))}
     </div>

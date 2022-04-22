@@ -28,6 +28,8 @@ const register = async (db, username, email, password) => {
     await setDoc(doc(db, "users", user.uid), {
       username,
       email,
+      rating: 660,
+      game_id: "NONE",
     });
     return {
       ok: 1,

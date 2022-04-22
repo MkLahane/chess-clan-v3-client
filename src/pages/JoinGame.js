@@ -12,8 +12,8 @@ export default function JoinGame(props) {
   useEffect(() => {
     const gameId = props.match.params.id;
     get_game(db, gameId).then((data) => {
-      const { challenger } = data;
-      if (challenger["user_id"] === user.uid) {
+      const { accepted, challenger } = data;
+      if (accepted || challenger["user_id"] === user.uid) {
         history.push("/arena");
       } else {
         join_game(db, user, gameId).then(() => history.push("/arena"));

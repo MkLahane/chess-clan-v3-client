@@ -1,7 +1,7 @@
 import React from "react";
 import { useDrag, DragPreviewImage } from "react-dnd";
 
-export const Piece = ({ type, color, chessPos }) => {
+export const Piece = ({ type, color, chessPos, isPlayingBlack }) => {
   const [{ isDragging }, dragRef, preview] = useDrag(
     () => ({
       type: "piece",
@@ -18,7 +18,7 @@ export const Piece = ({ type, color, chessPos }) => {
       <DragPreviewImage connect={preview} src={img_path} />
       <div
         ref={dragRef}
-        className="piece-div"
+        className={isPlayingBlack ? "piece-div-black" : "piece-div"}
         style={{
           opacity: isDragging ? 0.0 : 1,
         }}
