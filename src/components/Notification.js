@@ -32,7 +32,7 @@ export default function Notification() {
     <div className="notif-div">
       <div className="notif">
         <h3>{msg}</h3>
-        <button onClick={() => closeNotif()}>
+        <button className="notif-close" onClick={() => closeNotif()}>
           <i className="fa fa-window-close" aria-hidden="true"></i>
         </button>
       </div>

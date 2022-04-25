@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useHistory } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { Board } from "../components/Board";
@@ -16,12 +15,18 @@ import { useEffect } from "react";
 export default function Arena() {
   const [username, setUsername] = useState("");
   const [rating, setRating] = useState("");
-  const [gameId, setGameId] = useState("NONE");
-  const [gameIsOn, setGameIsOn] = useState(false);
-  const history = useHistory();
   const { auth, db } = useContext(FirebaseContext);
   const [user] = useAuthState(auth);
-  const { me, opponent, setGameUserData } = useContext(GameContext);
+  const {
+    game_id,
+    me,
+    opponent,
+    setGameId,
+    setGameUserData,
+    setMoves,
+    loadFen,
+    setGameAccepted,
+  } = useContext(GameContext);
   useEffect(() => {
     const unsubUser = onSnapshot(doc(db, "users", user.uid), (doc) => {
       const { username, rating, game_id } = doc.data();
@@ -32,11 +37,19 @@ export default function Arena() {
     return () => unsubUser();
   }, []);
   useEffect(() => {
-    if (gameId !== "NONE") {
-      const unsubGame = onSnapshot(doc(db, "games", gameId), (doc) => {
+    if (game_id !== "NONE") {
+      const unsubGame = onSnapshot(doc(db, "games", game_id), (doc) => {
         try {
           const data = doc.data();
-          const { challenger, participator, accepted } = data;
+          const {
+            fen,
+            challenger,
+            participator,
+            accepted,
+            moves,
+            winner,
+            gameResult,
+          } = data;
           if (challenger["user_id"] === user.uid) {
             console.log("I am challenger");
             setGameUserData(challenger, participator);
@@ -44,13 +57,16 @@ export default function Arena() {
             console.log("I am participator");
             setGameUserData(participator, challenger);
           }
-          //console.log(data);
-          setGameIsOn(accepted);
+          setMoves(moves);
+          setGameAccepted(accepted);
+          loadFen(fen);
         } catch (err) {}
       });
       return () => unsubGame();
+    } else {
+      setGameUserData(null, null);
     }
-  }, [gameId]);
+  }, [game_id]);
 
   return (
     <div className="arena-div">
@@ -70,7 +86,7 @@ export default function Arena() {
             <Board />
           </DndProvider>
         </div>
-        <GameToolbar gameId={gameId} gameIsOn={gameIsOn} />
+        <GameToolbar gameId={game_id} />
       </div>
       <div
         className="user-div-container"

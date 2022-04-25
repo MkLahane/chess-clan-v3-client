@@ -3,8 +3,8 @@ import ChatComponent from "./ChatComponent";
 import GameComponent from "./GameComponent";
 import MovesComponent from "./MovesComponent";
 
-export default function GameToolbar({ gameId, gameIsOn }) {
-  const [activeNav, setActiveNav] = useState(gameIsOn ? "moves" : "game");
+export default function GameToolbar({ gameId }) {
+  const [activeNav, setActiveNav] = useState("game");
   return (
     <div className="game-toolbar">
       <ul className="game-toolbar-nav">
@@ -33,15 +33,9 @@ export default function GameToolbar({ gameId, gameIsOn }) {
           Chat
         </li>
       </ul>
-      {activeNav === "game" && (
-        <GameComponent gameId={gameId} gameIsOn={gameIsOn} />
-      )}
-      {activeNav === "moves" && (
-        <MovesComponent gameId={gameId} gameIsOn={gameIsOn} />
-      )}
-      {activeNav === "chat" && (
-        <ChatComponent gameId={gameId} gameIsOn={gameIsOn} />
-      )}
+      {activeNav === "game" && <GameComponent gameId={gameId} />}
+      {activeNav === "moves" && <MovesComponent gameId={gameId} />}
+      {activeNav === "chat" && <ChatComponent gameId={gameId} />}
     </div>
   );
 }

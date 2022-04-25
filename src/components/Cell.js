@@ -2,18 +2,30 @@ import React from "react";
 import { Piece } from "./Piece";
 import { useDrop } from "react-dnd";
 import { useContext } from "react";
-import { GameContext } from "../contexts/Game";
+import { GameContext, update_game } from "../contexts/Game";
+import { FirebaseContext } from "../contexts/FirebaseContext";
 
 export const Cell = ({ piece, isBlack, chessPos, isPlayingBlack }) => {
-  const { me, makeMove } = useContext(GameContext);
+  const { game_id, winner, me, opponent, makeMove, getFenString } =
+    useContext(GameContext);
+  const { auth, db } = useContext(FirebaseContext);
   const [{ isOver }, drop] = useDrop({
     accept: "piece",
     drop: (item) => {
-      const [fromPos, _, whichColor] = item.id.split("_");
+      const [fromPos, , whichColor] = item.id.split("_");
       if (me !== null) {
         let myColor = me.color === "black" ? "b" : "w";
-        if (myColor == whichColor) {
-          makeMove(fromPos, chessPos);
+        if (myColor === whichColor && !winner) {
+          const res = makeMove(fromPos, chessPos);
+          update_game(
+            db,
+            game_id,
+            getFenString(),
+            chessPos,
+            me.user_id,
+            opponent.user_id,
+            res
+          );
         }
       } else {
         makeMove(fromPos, chessPos);

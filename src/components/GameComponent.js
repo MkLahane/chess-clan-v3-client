@@ -5,14 +5,14 @@ import { ReactComponent as ChessboardIcon } from "../icons/chessboard-icon.svg";
 import { new_game } from "../contexts/Game";
 import { FirebaseContext } from "../contexts/FirebaseContext";
 import { GameContext } from "../contexts/Game";
-import { NotificationContext } from "../contexts/NotificationContext";
 import { close_game } from "../contexts/Game";
+import LoadFEN from "./LoadFEN";
 
-export default function GameComponent({ gameId, gameIsOn }) {
+export default function GameComponent({ gameId }) {
   const { auth, db } = useContext(FirebaseContext);
   const [user] = useAuthState(auth);
   const [copied, setCopied] = useState(false);
-  const { getFenString, resetBoard } = useContext(GameContext);
+  const { getFenString, resetBoard, setGameUserData } = useContext(GameContext);
   const copy = () => {
     const el = document.createElement("input");
     el.value = `localhost:3000/arena/${gameId}`;
@@ -62,12 +62,14 @@ export default function GameComponent({ gameId, gameIsOn }) {
           }
           onClick={() => {
             close_game(db, user, gameId);
+            setGameUserData(null, null);
           }}
         >
           <i className="fa fa-window-close" aria-hidden="true"></i>
           Close Game
         </button>
       </div>
+      <LoadFEN />
     </div>
   );
 }

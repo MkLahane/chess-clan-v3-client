@@ -31,3 +31,87 @@
   display: flex;
   margin-right: auto;
 }
+
+.moves,
+.chat {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+}
+
+.moves li {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 90%;
+  margin: 5px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+}
+
+.moves li span:nth-child(1) {
+  color: #5fa8d3;
+  background: white;
+  font-size: 1.3rem;
+}
+
+.moves li span:nth-child(2) {
+  font-size: 0.7rem;
+}
+
+.chat li {
+  width: 90%;
+  margin: 5px;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.chat li span:nth-child(1) {
+  color: #5fa8d3;
+  background: white;
+  font-size: 1.3rem;
+}
+
+.load-fen-div {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.load-fen-div .game-btn {
+  padding: 20px;
+}
+
+.fen-div {
+  display: flex;
+}
+
+.fen-div button {
+  margin: 10px;
+  font-size: 1.5rem;
+}
+
+.fen-div button:hover {
+  background: white;
+  color: #5fa8d3;
+}
+
+.fen-input {
+  border: none;
+  padding: 10px 20px;
+  width: 500px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-family: "Poppins";
+  font-weight: bolder;
+  outline: none;
+  box-shadow: 5px 5px 0px white;
+  color: #5fa8d3;
+}

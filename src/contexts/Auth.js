@@ -20,6 +20,17 @@ const getUserstats = async (db, user) => {
   }
 };
 
+const getUsername = async (db, user_id) => {
+  try {
+    const docRef = doc(db, "users", user_id);
+    const docSnap = await getDoc(docRef);
+    const { username } = docSnap.data();
+    return username;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const register = async (db, username, email, password) => {
   const auth = getAuth();
   try {
@@ -59,4 +70,4 @@ const logIn = async (email, password) => {
   }
 };
 
-export { logIn, register, getUserstats };
+export { logIn, register, getUserstats, getUsername };

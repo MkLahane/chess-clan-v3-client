@@ -19,7 +19,7 @@
   position: relative;
 }
 
-.notif-div button {
+.notif-div .notif-close {
   background: #62b6cb;
   font-size: 3rem;
   display: flex;
