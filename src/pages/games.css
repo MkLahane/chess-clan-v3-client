@@ -1,0 +1,30 @@
+.games-div {
+  min-height: 100vh;
+  padding: 100px;
+}
+
+.games-div ul {
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin-left: 200px;
+}
+
+.games-div ul li {
+  width: 80%;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #5fa8d3;
+  color: white;
+  margin: 20px 0px;
+  box-shadow: 10px 10px 0px white;
+}
+
+.games-div ul li svg {
+  width: 50px;
+}

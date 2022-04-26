@@ -70,6 +70,7 @@ export default function GameComponent({ gameId }) {
         </button>
       </div>
       <LoadFEN />
+      <label>{gameId}</label>
     </div>
   );
 }

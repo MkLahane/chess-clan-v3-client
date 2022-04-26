@@ -14,6 +14,8 @@ import { GameProvider } from "./contexts/Game";
 import Notification from "./components/Notification";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import "./App.css";
+import Games from "./pages/Games";
+import SeeGame from "./pages/SeeGame";
 
 function App() {
   const { auth } = useContext(FirebaseContext);
@@ -32,6 +34,12 @@ function App() {
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute
                   exact
+                  path="/games"
+                  inverse={true}
+                  component={Games}
+                />
+                <AuthRoute
+                  exact
                   path="/arena"
                   inverse={true}
                   component={Arena}
@@ -41,6 +49,12 @@ function App() {
                   path="/arena/:id"
                   inverse={true}
                   component={JoinGame}
+                ></AuthRoute>
+                <AuthRoute
+                  exact
+                  path="/games/:id"
+                  inverse={true}
+                  component={SeeGame}
                 ></AuthRoute>
               </Switch>
             </NotificationProvider>

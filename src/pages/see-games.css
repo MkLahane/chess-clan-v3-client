@@ -1,0 +1,35 @@
+.see-game-div {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  margin-left: 300px;
+  padding: 20px;
+  justify-content: center;
+  position: relative;
+}
+
+.see-game-toolbar {
+  background: white;
+  width: 100%;
+  min-height: 600px;
+  box-shadow: 5px 5px 0px white;
+  padding: 20px;
+}
+
+.see-game-toolbar-ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.see-game-toolbar-ul li {
+  background: #62b6cb;
+  color: white;
+  margin: 0px 5px;
+  width: 100%;
+  padding: 10px 0px;
+  border-radius: 5px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}

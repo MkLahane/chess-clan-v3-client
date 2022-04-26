@@ -5,6 +5,7 @@ import { ReactComponent as SignUpIcon } from "../icons/sign-up.svg";
 import { ReactComponent as HomeIcon } from "../icons/home.svg";
 import { ReactComponent as ChessClanIcon } from "../icons/chess-clan-logo-v2.svg";
 import { ReactComponent as ChessboardIcon } from "../icons/chessboard-icon.svg";
+import { ReactComponent as ListIcon } from "../icons/list-icon.svg";
 import { signOut } from "firebase/auth";
 import { FirebaseContext } from "../contexts/FirebaseContext";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -75,6 +76,21 @@ export default function Navbar() {
           <Link to="/arena">
             <ChessboardIcon />
             Arena
+          </Link>
+        </li>
+      )}
+      {user && (
+        <li
+          onMouseEnter={() => setHoverNav("games")}
+          onMouseLeave={() => setHoverNav("")}
+          onClick={() => setActiveNav("games")}
+          className={
+            activeNav === "games" || hoverNav === "games" ? "active-nav" : ""
+          }
+        >
+          <Link to="/games">
+            <ListIcon />
+            Games
           </Link>
         </li>
       )}

@@ -1,0 +1,9 @@
+.chat-input {
+  border: none;
+  background: white;
+  outline: none;
+  width: 90%;
+  font-size: 1.2rem;
+  font-family: "Poppins";
+  margin-top: 20px;
+}
