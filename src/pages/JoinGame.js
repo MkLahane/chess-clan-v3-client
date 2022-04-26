@@ -19,6 +19,7 @@ export default function JoinGame(props) {
         join_game(db, user, gameId).then(() => history.push("/arena"));
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <div className="game-div">Joining game.....</div>;
 }

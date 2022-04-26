@@ -25,6 +25,7 @@ export default function ChatComponent({ gameId }) {
       return () => unsubChat();
     }
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameId]);
   return (
     <div className="toolbar-div">

@@ -8,8 +8,8 @@ import { FirebaseContext } from "../contexts/FirebaseContext";
 export const Cell = ({ piece, isBlack, chessPos, isPlayingBlack }) => {
   const { game_id, winner, me, opponent, makeMove, getFenString } =
     useContext(GameContext);
-  const { auth, db } = useContext(FirebaseContext);
-  const [{ isOver }, drop] = useDrop({
+  const { db } = useContext(FirebaseContext);
+  const [, drop] = useDrop({
     accept: "piece",
     drop: (item) => {
       const [fromPos, , whichColor] = item.id.split("_");

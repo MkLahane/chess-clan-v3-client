@@ -35,21 +35,14 @@ export default function Arena() {
       setGameId(game_id);
     });
     return () => unsubUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     if (game_id !== "NONE") {
       const unsubGame = onSnapshot(doc(db, "games", game_id), (doc) => {
         try {
           const data = doc.data();
-          const {
-            fen,
-            challenger,
-            participator,
-            accepted,
-            moves,
-            winner,
-            gameResult,
-          } = data;
+          const { fen, challenger, participator, accepted, moves } = data;
           if (challenger["user_id"] === user.uid) {
             console.log("I am challenger");
             setGameUserData(challenger, participator);
@@ -66,6 +59,7 @@ export default function Arena() {
     } else {
       setGameUserData(null, null);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game_id]);
 
   return (

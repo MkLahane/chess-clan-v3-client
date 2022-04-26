@@ -12,7 +12,7 @@ export default function SeeGame(props) {
   useEffect(() => {
     const gameId = props.match.params.id;
     setGameId(gameId);
-    console.log(gameId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="see-game-div">

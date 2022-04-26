@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
 import { FirebaseContext } from "../contexts/FirebaseContext";
 import { collection, getDocs } from "firebase/firestore";
@@ -9,10 +8,10 @@ import "./games.css";
 
 export default function Games() {
   const [games, setGames] = useState([]);
-  const { auth, db } = useContext(FirebaseContext);
-  const [user] = useAuthState(auth);
+  const { db } = useContext(FirebaseContext);
   useEffect(() => {
     getAllGames();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const getAllGames = async () => {
     const querySnapshot = await getDocs(collection(db, "games"));

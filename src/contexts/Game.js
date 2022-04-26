@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, createContext } from "react";
+import React, { useReducer, createContext } from "react";
 import * as Chess from "chess.js";
 import { setDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
 import { getUserstats, getUsername } from "./Auth";

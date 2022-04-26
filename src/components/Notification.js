@@ -24,6 +24,7 @@ export default function Notification() {
       );
       return () => unsubUser();
     } catch (e) {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   if (!notificationOpen) {
     return <></>;
