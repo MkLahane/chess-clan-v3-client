@@ -37,6 +37,7 @@
 .game-btn svg {
   width: 50px;
   padding: 5px;
+  fill: white;
 }
 
 .game-inactive-btn {

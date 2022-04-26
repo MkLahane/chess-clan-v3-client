@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { ReactComponent as LoginIcon } from "../icons/login.svg";
 import { ReactComponent as SignUpIcon } from "../icons/sign-up.svg";
 import { ReactComponent as HomeIcon } from "../icons/home.svg";
-import { ReactComponent as ChessClanIcon } from "../icons/chess-clan-logo-v2.svg";
 import { ReactComponent as ChessboardIcon } from "../icons/chessboard-icon.svg";
 import { ReactComponent as ListIcon } from "../icons/list-icon.svg";
 import { signOut } from "firebase/auth";
@@ -112,7 +111,13 @@ export default function Navbar() {
         </li>
       )}
       <li className="chess-clan-logo">
-        <ChessClanIcon />
+        <img
+          src="chess-clan-logo.png"
+          alt="chess-clan-logo"
+          style={{
+            width: "100px",
+          }}
+        />
       </li>
     </ul>
   );
